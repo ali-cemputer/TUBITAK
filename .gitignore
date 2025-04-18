@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.ipynb_checkpoints/
+
+# Virtual environments
+.env/
+.venv/
+env/
+venv/
+*.egg-info/
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# PyCharm
+.idea/
+*.iml
+
+# VSCode
+.vscode/
+
+# Model checkpoint ve ağırlık dosyaları
+*.h5
+*.hdf5
+*.ckpt
+*.pb
+*.tflite
+
+# Optuna çalışma dosyaları (eğer kayıt yapılıyorsa)
+*.db
+optuna.log
+
+# Dataset ve çıktı klasörleri
+/data/
+datasets/
+*.zip
+*.tar.gz
+
+# TensorBoard logları
+logs/
+runs/
+
+# Matplotlib cache
+.matplotlib/
+
+# Output görseller
+*.png
+*.jpg
+*.jpeg
+
+# CSV/Parquet çıktıları (eğer üretiliyorsa)
+*.csv
+*.parquet
+
+# Genel olarak büyük dosyalar
+*.npz
+*.npy
