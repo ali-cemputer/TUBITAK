@@ -144,3 +144,46 @@ def visualize_predictions(model, image_paths, class_names, num_images=5):
         plt.axis('off')
 
     plt.show()
+
+
+
+import cv2
+from tensorflow.keras.preprocessing.image import img_to_array
+
+def augment_no_accident_smooth(df, aug_size=10):
+    """
+    Sadece 'no_accident' sınıfına ait görüntüler için Gaussian blur ile veri artırımı yapar.
+
+    Args:
+        df (pd.DataFrame): Eğitim veri çerçevesi.
+        aug_size (int): Her orijinal görüntüden kaç adet çoğaltılacağı.
+
+    Returns:
+        pd.DataFrame: Veri artırılmış yeni dataframe.
+    """
+    augmented_rows = []
+    no_acc_df = df[df["no_accident"] == 1]
+
+    for _, row in no_acc_df.iterrows():
+        img_path = row['filename']
+        original_img = cv2.imread(img_path)
+        if original_img is None:
+            continue
+
+        for i in range(aug_size):
+            # Gaussian blur uygula
+            blurred = cv2.GaussianBlur(original_img, (5, 5), 0)
+
+            # Yeni yol ve dosya ismi oluştur
+            new_filename = img_path.replace('.jpg', f'_smooth_{i}.jpg')
+            cv2.imwrite(new_filename, blurred)
+
+            # Yeni row oluştur
+            new_row = row.copy()
+            new_row['filename'] = new_filename
+            augmented_rows.append(new_row)
+
+    aug_df = pd.DataFrame(augmented_rows)
+    combined_df = pd.concat([df, aug_df], ignore_index=True)
+    return combined_df
+
