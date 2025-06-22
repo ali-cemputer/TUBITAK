@@ -6,7 +6,6 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 import random
 import cv2
-from tensorflow import keras
 from tensorflow.keras.preprocessing.image import load_img, img_to_array, ImageDataGenerator
 from sklearn.metrics import confusion_matrix, accuracy_score, f1_score, roc_auc_score, classification_report
 
