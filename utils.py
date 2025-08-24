@@ -9,16 +9,13 @@ import cv2
 from tensorflow.keras.preprocessing.image import load_img, img_to_array, ImageDataGenerator
 from sklearn.metrics import confusion_matrix, accuracy_score, f1_score, roc_auc_score, classification_report
 
-# Global Sabitler
-IMG_SIZE = (224, 224)  # Görüntülerin yeniden boyutlandırılacağı piksel boyutu.
-BATCH_SIZE = 32  # Model eğitimi sırasında kullanılacak mini-batch boyutu.
 ORIGINAL_DATA_PATH = "../TUBITAK/datasets/CSV_Multi_Label_Classification"  # Orijinal veri setinin ana yolu.
 AUGMENTED_DATA_PATH = "../TUBITAK/datasets/CSV_Multi_Label_Classification_Augmented"  # Artırılmış veri setinin kaydedileceği ana yol.
 
 
 # --- Veri Yükleme ve Ön İşleme Fonksiyonları ---
 
-def load_data(subset='train', base_path=ORIGINAL_DATA_PATH):
+def load_data(subset, base_path=ORIGINAL_DATA_PATH):
     """
     Belirtilen alt küme için CSV dosyasından veri yükler, sütun isimlerini temizler
     ve dosya yollarını mutlak yollara dönüştürür.
@@ -33,7 +30,7 @@ def load_data(subset='train', base_path=ORIGINAL_DATA_PATH):
     """
     csv_path = os.path.join(base_path, subset, '_classes.csv')
 
-    # CSV dosyasını oku (varsayılan kodlamayla dene)
+    # CSV dosyasını oku
     df = pd.read_csv(csv_path, encoding='utf-8')
 
     df.columns = df.columns.str.strip()  # Sütun isimlerindeki boşlukları temizle
@@ -50,7 +47,7 @@ def load_data(subset='train', base_path=ORIGINAL_DATA_PATH):
     return df
 
 
-def preprocess_image(image_path, img_size=IMG_SIZE):
+def preprocess_image(image_path, img_size=(224,224)):
     """
     Görüntü dosyasını yükler, belirtilen boyuta yeniden boyutlandırır ve pikselleri normalize eder (0-1 aralığına).
     TensorFlow grafik uyumlu hale getirildi.
@@ -70,7 +67,7 @@ def preprocess_image(image_path, img_size=IMG_SIZE):
     return img
 
 
-def create_dataset(df, batch_size=BATCH_SIZE):
+def create_dataset(df, batch_size=32):
     """
     Pandas DataFrame'den TensorFlow Dataset nesnesi oluşturur.
     Görüntüleri ön işler, veriyi batch'lere ayırır ve prefetch ile performansı artırır.
@@ -147,7 +144,7 @@ def evaluate_model(model, test_dataset, class_names):
     print(classification_report(y_true, y_pred, target_names=class_names))
 
 
-def predict_single_image(model, image_path, class_names, img_size=IMG_SIZE):
+def predict_single_image(model, image_path, class_names, img_size=(224,224)):
     """
     Tek bir görüntü için model tahmini yapar ve tahmin edilen sınıf ile güven değerini döndürür.
 
@@ -171,7 +168,7 @@ def predict_single_image(model, image_path, class_names, img_size=IMG_SIZE):
     return predicted_class, confidence
 
 
-def visualize_predictions(model, image_paths, class_names, num_images=5, img_size=IMG_SIZE):
+def visualize_predictions(model, image_paths, class_names, num_images=5, img_size=(224,224)):
     """
     Model tahminlerini rastgele seçilen görüntülerle görselleştirir.
     Görüntüleri ve modelin tahminini, güven değeriyle birlikte gösterir.
@@ -278,7 +275,7 @@ def augment_and_save_data(df, subset_name,
         elif (row['moderate'] == 1) and (row['severe'] == 0) and moderate_aug_size > 0:
             aug_count = moderate_aug_size
         elif (row['severe'] == 1) and (row['moderate'] == 0) and severe_aug_size > 0:
-            aug_count = severe_aug_size
+                aug_count = severe_aug_size
 
         # Görüntüleri artır ve kaydet
         for i in range(aug_count):
