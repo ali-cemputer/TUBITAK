@@ -34,7 +34,7 @@ optuna.log
 
 # Dataset ve çıktı klasörleri
 /data/
-datasets/
+MultiLabel_File/datasets/
 *.zip
 *.tar.gz
 
