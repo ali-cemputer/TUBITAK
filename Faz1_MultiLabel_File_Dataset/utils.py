@@ -12,7 +12,6 @@ from sklearn.metrics import confusion_matrix, accuracy_score, f1_score, roc_auc_
 ORIGINAL_DATA_PATH = "datasets/CSV_Multi_Label_Classification"  # Orijinal veri setinin ana yolu.
 AUGMENTED_DATA_PATH = "datasets/CSV_Multi_Label_Classification_Augmented"  # Artırılmış veri setinin kaydedileceği ana yol.
 
-
 # --- Veri Yükleme ve Ön İşleme Fonksiyonları ---
 
 def load_data(subset, base_path=ORIGINAL_DATA_PATH):
@@ -31,7 +30,7 @@ def load_data(subset, base_path=ORIGINAL_DATA_PATH):
     csv_path = os.path.join(base_path, subset, '_classes.csv')
 
     # CSV dosyasını oku
-    df = pd.read_csv(csv_path, encoding='utf-8')
+    df = pd.read_csv(csv_path)
 
     df.columns = df.columns.str.strip()  # Sütun isimlerindeki boşlukları temizle
 
@@ -47,7 +46,7 @@ def load_data(subset, base_path=ORIGINAL_DATA_PATH):
     return df
 
 
-def preprocess_image(image_path, img_size=(224,224)):
+def preprocess_image(image_path):
     """
     Görüntü dosyasını yükler, belirtilen boyuta yeniden boyutlandırır ve pikselleri normalize eder (0-1 aralığına).
     TensorFlow grafik uyumlu hale getirildi.
@@ -62,8 +61,9 @@ def preprocess_image(image_path, img_size=(224,224)):
     # Doğrudan TensorFlow fonksiyonlarını kullan
     img = tf.io.read_file(image_path)
     img = tf.image.decode_jpeg(img, channels=3)
-    img = tf.image.resize(img, img_size)
+    img = tf.image.resize(img, [224, 224])
     img = img / 255.0
+
     return img
 
 
