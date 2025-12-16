@@ -62,9 +62,12 @@ def preprocess_image(image_path):
     img = tf.io.read_file(image_path)
     img = tf.image.decode_jpeg(img, channels=3)
     img = tf.image.resize(img, [224, 224])
-    img = img / 255.0
-
+    img = img/255.0
     return img
+
+
+
+
 
 
 def create_dataset(df, batch_size=32):
@@ -197,7 +200,20 @@ def visualize_predictions(model, image_paths, class_names, num_images=5, img_siz
 
 
 # --- Veri Artırma Fonksiyonları ---
-
+# --- YARDIMCI FONKSİYON: Dosya İsmi Temizleme ---
+import unicodedata
+import re
+def sanitize_filename(filename):
+    """
+    Dosya ismindeki Türkçe ve özel karakterleri İngilizce karşılıklarına çevirir.
+    Örn: 'sarı_araba_kaza_anısı.jpg' -> 'sari_araba_kaza_anisi.jpg'
+    Bu işlem TF.io.read_file'ın Windows'ta patlamasını %100 engeller.
+    """
+    # Unicode normalizasyonu (ı -> i, ş -> s gibi dönüşümler yapar)
+    filename = unicodedata.normalize('NFKD', filename).encode('ascii', 'ignore').decode('ascii')
+    # Sadece harf, rakam, tire, alt çizgi ve nokta kalsın
+    filename = re.sub(r'[^a-zA-Z0-9_.-]', '', filename)
+    return filename
 def augment_image_data_gen(image_array, data_gen):
     """
     Tek bir görüntüyü Keras ImageDataGenerator kullanarak artırır.
