@@ -46,17 +46,17 @@ Proje, problemin farklı boyutlarını ele alan iki temel aşama (Faz) üzerine 
 |   ├───utils.py
 |
 ├───Faz2_ACC_SEV_File_Dataset
-│   ├───best_model_files
-│   └───datasets
-│   │    └───CNN_ACC_SEV_V1.v2i.multiclass
-│   │        ├───test
-│   │        ├───train
-│   │        └───valid
-│   ├───CNN.ipynb
-|   ├───EfficientNet.ipynb
-|   ├───GoogleNet.ipynb
-|   ├───ResNet.ipynb
-|   └───VGG.ipynb
+    ├───best_model_files
+    └───datasets
+    │    └───CNN_ACC_SEV_V1.v2i.multiclass
+    │        ├───test
+    │        ├───train
+    │        └───valid
+    ├───CNN.ipynb
+    ├───EfficientNet.ipynb
+    ├───GoogleNet.ipynb
+    ├───ResNet.ipynb
+    └───VGG.ipynb
 ```
 ## 🚀 Proje Aşamaları ve Metodoloji
 
