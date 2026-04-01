@@ -9,6 +9,7 @@
 ## 🇹🇷 Proje Hakkında
 
 Bu proje, **TÜBİTAK 2209-A Üniversite Öğrencileri Araştırma Projeleri Destekleme Programı** kapsamında desteklenmiştir. 
+
 **📌 Yayın Bilgisi**
 4. Uluslararası İYONYA Konferansı'nda uluslararası bildiri olarak yayımlanmıştır. Projenin amacı, detayları ve sonuçları hakkında kapsamlı bilgiye [ISARC Konferans Kitabı](https://www.isarconference.org/_files/ugd/6dc816_9a032037ee0b4e4b908bc719cafb587c.pdf) üzerinden "Ali Cem Duran" araması yaparak ulaşabilirsiniz.
 
